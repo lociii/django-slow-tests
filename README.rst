@@ -88,26 +88,24 @@ Instructions
 
     TEST_RUNNER = 'django_slowtests.testrunner.DiscoverSlowestTestsRunner'
 
-3. Run test suite::
-
-    Adjust optional settings, see above
+3. Adjust optional settings, see above::   
 
 4. Run test suite::
 
     $ python manage.py test
 
+   4.1. Save report to file::
 
-4.1. Save report to file::
-    $ python manage.py test --slowreportpath report.json
+         $ python manage.py test --slowreportpath report.json
 
-4.2. Generating full reports to file::
-    In some situations, you may need to generate full tests reports. To do so,
-    set NUM_SLOW_TESTS to None in your settings and run the following command:
-    $ python manage.py test --slowreportpath report.json
+   4.2. Generating full reports to file::
 
+         $ python manage.py test --slowreportpath report.json
+
+         In some situations, you may need to generate full tests reports. To do so,
+         set NUM_SLOW_TESTS to None in your settings and run the following command:
 
 5. Sample output::
-
 
     $ python manage.py test
     Creating test database for alias 'default'...
