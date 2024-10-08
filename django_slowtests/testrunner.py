@@ -10,14 +10,25 @@ from django.test.runner import DiscoverRunner
 from django.conf import settings
 
 
-try:  # pragma: no cover
-    import freezegun
+def _time():
+    """
+    when travelling time, we need a mechanism to get the actual time.
+    this is used to properly measure test execution time.
+    """
+    try:
+        import time_machine
+        if time_machine.escape_hatch.is_travelling():
+            return time_machine.escape_hatch.time.time()
+    except ImportError:
+        pass
 
-    def _time():
+    try:
+        import freezegun
         return freezegun.api.real_time()
-except ImportError:  # pragma: no cover
-    def _time():
-        return time.time()
+    except ImportError:
+        pass
+
+    return time.time()
 
 
 class TimingTextTestRunner(TextTestRunner):
