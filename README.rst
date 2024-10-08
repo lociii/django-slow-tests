@@ -18,8 +18,64 @@ Welcome!
 
 Welcome to the documentation for django-slowtests!
 
-*Code tested on Django 1.6, 1.7, 1.8, 1.9, 1.10 and 1.11 with Python 2.7 and 3.6
+.. list-table:: Test matrix
+   :header-rows: 1
 
+   * - Django release
+     - Python 3.8
+     - Python 3.9
+     - Python 3.10
+     - Python 3.11
+     - Python 3.12
+   * - 4.2
+     - x
+     - x
+     - x
+     - x
+     - x
+   * - 5.0
+     -
+     -
+     - x
+     - x
+     - x
+   * - 5.1
+     -
+     -
+     - x
+     - x
+     - x
+
+This library is compatible with `freezegun` and `time-machine` to travel time.
+
+Settings
+--------
+
+NUM_SLOW_TESTS
+~~~~~~~~~~~~~~
+
+Set the count of slow tests to report.  
+Set to `None` to list all slow tests.
+
+| Type: int
+| Default: 10
+
+SLOW_TEST_THRESHOLD_MS
+~~~~~~~~~~~~~~~~~~~~~~
+
+Threshold in milliseconds on when a test case is considered to be slow.
+
+| Type: int
+| Default: 200
+
+ALWAYS_GENERATE_SLOW_REPORT
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Flag if a slow test report should always be generated.
+If set to `False`, the report is only generated if requested with the `--slowreport` flag.
+
+| Type: boolean
+| Default: True
 
 Instructions
 -------------
@@ -28,32 +84,29 @@ Instructions
 
     $ pip install django-slowtests
 
-2. Add the following settings::
+2. Use the provided test runner::
 
     TEST_RUNNER = 'django_slowtests.testrunner.DiscoverSlowestTestsRunner'
-    NUM_SLOW_TESTS = 10
-
-    # (Optional)
-    SLOW_TEST_THRESHOLD_MS = 200  # Only show tests slower than 200ms
-
-    # (Optional)
-    ALWAYS_GENERATE_SLOW_REPORT = False  # Generate report only when requested using --slowreport flag
 
 3. Run test suite::
+
+    Adjust optional settings, see above
+
+4. Run test suite::
 
     $ python manage.py test
 
 
-3.1. Save report to file::
+4.1. Save report to file::
     $ python manage.py test --slowreportpath report.json
 
-3.2. Generating full reports to file::
+4.2. Generating full reports to file::
     In some situations, you may need to generate full tests reports. To do so,
     set NUM_SLOW_TESTS to None in your settings and run the following command:
     $ python manage.py test --slowreportpath report.json
 
 
-4. Sample output::
+5. Sample output::
 
 
     $ python manage.py test
