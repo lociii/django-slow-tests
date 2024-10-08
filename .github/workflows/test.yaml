@@ -69,9 +69,12 @@ jobs:
       - name: Install dependencies
         run: pip install -U coverage freezegun time-machine setuptools
 
+      - name: Install package
+        run: pip install -e .
+
       # execute the tests
       - name: Run tests
-        run: coverage run setup.py test
+        run: coverage run --source=django_slowtests manage.py test
 
       - name: Store coverage file
         uses: actions/upload-artifact@v3
